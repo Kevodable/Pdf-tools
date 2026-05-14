@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Officina PDF — Strumenti per documenti</title>
+<meta name="description" content="Strumenti per modificare PDF e convertire P7M. Tutto nel browser, niente upload.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-mark">◐</span>
+    <span class="brand-name">Officina PDF</span>
+  </div>
+  <nav class="site-nav">
+    <a href="#strumenti">Strumenti</a>
+    <a href="#privacy">Privacy</a>
+    <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero">
+  <p class="eyebrow">Strumenti per documenti — gratuiti, senza upload</p>
+  <h1>Officina<br><em>PDF</em></h1>
+  <p class="lede">
+    Una piccola raccolta di strumenti per lavorare sui PDF e convertire file P7M
+    delle Pubbliche Amministrazioni italiane. Tutto avviene nel tuo browser:
+    i file non lasciano mai il tuo computer.
+  </p>
+  <div class="hero-meta">
+    <span>● Client-side</span>
+    <span>● Open source</span>
+    <span>● Made in Italy</span>
+  </div>
+</section>
+
+<section id="strumenti" class="tools-grid">
+
+  <article class="tool-card" data-tool="merge">
+    <header class="tool-head">
+      <span class="tool-num">01</span>
+      <h2>Unisci PDF</h2>
+      <p>Combina più file PDF in un unico documento. Trascina per riordinare.</p>
+    </header>
+    <div class="tool-body">
+      <div class="dropzone" data-target="merge-input">
+        <input type="file" id="merge-input" accept="application/pdf" multiple hidden>
+        <p>Trascina i PDF qui<br><span>o clicca per selezionare</span></p>
+      </div>
+      <ul class="file-list" id="merge-list"></ul>
+      <button class="action" id="merge-run" disabled>Unisci e scarica</button>
+      <div class="status" id="merge-status"></div>
+    </div>
+  </article>
+
+  <article class="tool-card" data-tool="split">
+    <header class="tool-head">
+      <span class="tool-num">02</span>
+      <h2>Dividi PDF</h2>
+      <p>Estrai pagine specifiche o intervalli. Es: <code>1-3, 5, 8-10</code></p>
+    </header>
+    <div class="tool-body">
+      <div class="dropzone" data-target="split-input">
+        <input type="file" id="split-input" accept="application/pdf" hidden>
+        <p>Trascina un PDF qui<br><span>o clicca per selezionare</span></p>
+      </div>
+      <ul class="file-list" id="split-list"></ul>
+      <label class="field">
+        <span>Pagine da estrarre</span>
+        <input type="text" id="split-range" placeholder="1-3, 5, 8-10">
+      </label>
+      <button class="action" id="split-run" disabled>Estrai pagine</button>
+      <div class="status" id="split-status"></div>
+    </div>
+  </article>
+
+  <article class="tool-card" data-tool="rotate">
+    <header class="tool-head">
+      <span class="tool-num">03</span>
+      <h2>Ruota e riordina</h2>
+      <p>Ruota singole pagine o l'intero documento. Clicca le miniature per ruotare.</p>
+    </header>
+    <div class="tool-body">
+      <div class="dropzone" data-target="rotate-input">
+        <input type="file" id="rotate-input" accept="application/pdf" hidden>
+        <p>Trascina un PDF qui<br><span>o clicca per selezionare</span></p>
+      </div>
+      <div class="page-grid" id="rotate-pages"></div>
+      <div class="row">
+        <button class="action ghost" id="rotate-all-left" disabled>↺ Ruota tutte −90°</button>
+        <button class="action ghost" id="rotate-all-right" disabled>↻ Ruota tutte +90°</button>
+      </div>
+      <button class="action" id="rotate-run" disabled>Salva PDF</button>
+      <div class="status" id="rotate-status"></div>
+    </div>
+  </article>
+
+  <article class="tool-card" data-tool="compress">
+    <header class="tool-head">
+      <span class="tool-num">04</span>
+      <h2>Comprimi PDF</h2>
+      <p>Riduce il peso ricomprimendo le immagini. Scegli la qualità.</p>
+    </header>
+    <div class="tool-body">
+      <div class="dropzone" data-target="compress-input">
+        <input type="file" id="compress-input" accept="application/pdf" hidden>
+        <p>Trascina un PDF qui<br><span>o clicca per selezionare</span></p>
+      </div>
+      <ul class="file-list" id="compress-list"></ul>
+      <label class="field">
+        <span>Qualità: <strong id="compress-quality-label">media (60%)</strong></span>
+        <input type="range" id="compress-quality" min="20" max="90" value="60" step="5">
+      </label>
+      <button class="action" id="compress-run" disabled>Comprimi e scarica</button>
+      <div class="status" id="compress-status"></div>
+    </div>
+  </article>
+
+  <article class="tool-card" data-tool="to-images">
+    <header class="tool-head">
+      <span class="tool-num">05</span>
+      <h2>PDF → Immagini</h2>
+      <p>Converte ogni pagina in PNG. Ottimo per anteprime o slide.</p>
+    </header>
+    <div class="tool-body">
+      <div class="dropzone" data-target="img-input">
+        <input type="file" id="img-input" accept="application/pdf" hidden>
+        <p>Trascina un PDF qui<br><span>o clicca per selezionare</span></p>
+      </div>
+      <ul class="file-list" id="img-list"></ul>
+      <label class="field">
+        <span>Risoluzione: <strong id="img-scale-label">2× (alta)</strong></span>
+        <input type="range" id="img-scale" min="1" max="3" value="2" step="0.5">
+      </label>
+      <button class="action" id="img-run" disabled>Converti in immagini</button>
+      <div class="status" id="img-status"></div>
+    </div>
+  </article>
+
+  <article class="tool-card featured" data-tool="p7m">
+    <header class="tool-head">
+      <span class="tool-num">06</span>
+      <h2>P7M → PDF</h2>
+      <p>Estrae il PDF originale dai file firmati digitalmente (CMS/PKCS#7) della PA italiana.</p>
+    </header>
+    <div class="tool-body">
+      <div class="dropzone" data-target="p7m-input">
+        <input type="file" id="p7m-input" accept=".p7m,application/pkcs7-mime" multiple hidden>
+        <p>Trascina i file .p7m qui<br><span>o clicca per selezionare</span></p>
+      </div>
+      <ul class="file-list" id="p7m-list"></ul>
+      <button class="action" id="p7m-run" disabled>Estrai PDF</button>
+      <div class="status" id="p7m-status"></div>
+      <details class="note">
+        <summary>Il file non viene riconosciuto?</summary>
+        <p>Alcuni P7M (specie quelli di Agenzia delle Dogane) usano strutture CMS
+        non standard. In quel caso usa <code>openssl</code>:</p>
+        <pre><code>openssl smime -verify -noverify \
+  -in file.pdf.p7m -inform DER \
+  -out file.pdf</code></pre>
+      </details>
+    </div>
+  </article>
+
+</section>
+
+<section id="privacy" class="privacy-note">
+  <h2>Come funziona la privacy</h2>
+  <p>
+    Tutti gli strumenti girano direttamente nel browser usando
+    <a href="https://github.com/Hopding/pdf-lib" target="_blank" rel="noopener">pdf-lib</a>,
+    <a href="https://mozilla.github.io/pdf.js/" target="_blank" rel="noopener">PDF.js</a>
+    e <a href="https://github.com/digitalbazaar/forge" target="_blank" rel="noopener">node-forge</a>.
+    I file caricati restano sul tuo dispositivo: <strong>nessun upload</strong>,
+    nessun tracciamento, nessun limite di dimensione imposto.
+  </p>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p>
+    <span>Officina PDF</span>
+    <span>·</span>
+    <span>Open source — MIT</span>
+    <span>·</span>
+    <span>Costruita con cura in Italia</span>
+  </p>
+</footer>
+
+<!-- Librerie -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/forge/1.3.1/forge.min.js"></script>
+<script>
+  // Configura PDF.js worker
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
